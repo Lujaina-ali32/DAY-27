@@ -102,6 +102,7 @@ export default function App() {
           </div>
         ))}
       </div>
+
       <div className="flex justify-center gap-4 mb-8 flex-wrap">
         <button onClick={generateLook} className="bg-linear-to-r from-yellow-400 to-orange-500 px-6 py-3 rounded-full font-bold shadow-lg hover:scale-105 transition transform">Generate Look ✨</button>
         <button onClick={surpriseMe} className="bg-purple-500 px-6 py-3 rounded-full font-bold shadow-lg hover:scale-105 transition transform">Surprise Me 🎲</button>
@@ -111,17 +112,27 @@ export default function App() {
       {look.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {look.map((item,i) => (
-            <div key={i} onClick={()=>openModal(item)} className="bg-white text-black p-4 rounded-2xl shadow-2xl hover:shadow-3xl transform transition-all duration-300 hover:scale-105 hover:rotate-1 cursor-pointer">
+            <div key={i} className="bg-white text-black p-4 rounded-2xl shadow-2xl hover:shadow-3xl transform transition-all duration-300 hover:scale-105 hover:rotate-1">
               <h3 className="font-bold text-xl mb-4 text-center">{item.color}</h3>
               <div className="flex justify-around items-center">
                 {["jhumka","churiyan","earrings"].map(k=>(
                   <div key={k} className="flex flex-col items-center transform transition-all hover:scale-110 hover:shadow-xl">
-                    <img src={item[k]} onClick={(e)=>{e.stopPropagation(); openZoom(item[k]);}} className="w-24 h-24 rounded-lg cursor-zoom-in" />
+                    <img src={item[k]} onClick={()=>openZoom(item[k])} className="w-24 h-24 rounded-lg cursor-zoom-in" />
                     <p className="mt-2 text-sm font-medium">{k.charAt(0).toUpperCase()+k.slice(1)}</p>
                   </div>
                 ))}
               </div>
               {surprise && <p className="mt-2 text-center text-purple-700 font-semibold animate-bounce">💫 Surprise Look!</p>}
+
+              {/* Jewellery Suggestion Box */}
+              <div className="mt-4 bg-gray-100 text-gray-900 rounded-xl p-3 shadow-lg">
+                <h4 className="font-bold mb-2 text-center">💍 Suggested Jewellery Combo</h4>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>Jhumka: Elegant {item.color} style</li>
+                  <li>Churiyan: Matching {item.color} bangles</li>
+                  <li>Earrings: Coordinated {item.color} earrings</li>
+                </ul>
+              </div>
             </div>
           ))}
         </div>
